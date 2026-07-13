@@ -1,0 +1,357 @@
+:root{
+    --bg-main: #F2ECE0;
+    --bg-card: #FBF6EC;
+    --text-primary: #1C1C1E;
+    --text-secondary: #3A3A3C;
+    --accent-orange: #C43B26;
+    --border-card: #F2E9D8;
+}
+
+.upatanet-container{
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado */
+.upatanet-header{
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 16px 40px;
+    background-color: var(--border-card);
+    box-shadow: 0px -2px 7px var(--text-secondary);
+    z-index: 10;
+}
+
+.header-logo{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-logo h1{
+    font-size: 1.8rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.header-user{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-info{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-name{
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.user-role{
+    font-size: 0.7rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--text-secondary);
+}
+
+.logout-btn{
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.logout-btn:hover{
+    color: var(--accent-orange);
+}
+
+/* Cuerpo Principal */
+.upatanet-main{
+    flex: 1;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    margin-top: 60px;
+}
+
+.main-title{
+    font-size: 1.4rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+/* Lista y Tarjetas */
+.jornadas-list{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.jornada-card{
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Línea indicadora naranja a la izquierda de la tarjeta */
+.jornada-card::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--accent-orange);
+}
+
+.jornada-left{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Círculos de estado */
+.status-dot{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-dot.pending{
+    border: 2px solid var(--text-secondary);
+    background-color: transparent;
+}
+
+.status-dot.completed{
+    background-color: var(--accent-orange);
+    border: 2px solid var(--accent-orange);
+}
+
+.jornada-details{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.jornada-titulo{
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+}
+
+.jornada-lugar{
+    font-size: 0.65rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.jornada-right{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.jornada-fecha{
+    background-color: #e3dacd;
+    font-size: 0.7rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    min-width: 60px;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.btn-editar{
+    background-color: var(--border-card);
+    border: none;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.7rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: background-color 0.2s;
+}
+
+.btn-editar:hover{
+    background-color: #e7dece;
+}
+
+/* Botón Crear Nueva Jornada */
+.action-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn{
+    background-color: var(--accent-orange);
+    color: white;
+    border: none;
+    font-size: 0.85rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(199, 75, 37, 0.3);
+    transition: opacity 0.2s;
+}
+
+.btn:hover, #btn:hover{
+    opacity: 0.9;
+}
+
+/* Estilos específicos del formulario */
+.form-card{
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-row{
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .form-group{
+    flex: 1;
+}
+
+.form-group label{
+    font-size: 0.86rem;
+    color: var(--text-primary);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea{
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dcd4c5;
+    border-radius: 20px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: ease-in-out 0.25s;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus{
+    outline: none;
+    box-shadow: 0px 0px 3px #5b5a57;
+}
+
+.form-group select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="black" d="M1 3l5 5 5-5z"/></svg>');
+
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.form-group textarea{
+    border-radius: 12px;
+    min-height: 80px;
+    resize: none;
+}
+
+.form-actions{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.fondo{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.contenido{
+    background-color: var(--border-card);
+    padding: 80px 50px;
+    border-radius: 12px;
+    position: relative;
+    width: 300px;
+    color: var(--text-primary);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.botonCerrar{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
