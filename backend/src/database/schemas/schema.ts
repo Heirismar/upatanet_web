@@ -16,6 +16,8 @@ export const comunidadVecina = sqliteTable('comunidad_vecina', {
 export const usuario = sqliteTable('usuario', {
   id: text('id').primaryKey(),
   nombre: text('nombre'),
+  email: text('email').notNull().unique(),
+  password: text('password').notNull(),
   titulo: text('titulo'),
   comunidad_id: text('comunidad_id').references(() => comunidad.id),
   id_nodo: text('id_nodo'),

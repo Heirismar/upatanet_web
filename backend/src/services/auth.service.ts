@@ -1,39 +1,48 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { envConfig } from '../config';
+import { envConfig } from '../config/env.config';
+import { AuthRepository } from '../repositories/auth.repository';
+import type { CreateUserDTO, UserResponse, UserLoginDTO } from '../models/schemas.dto';
 
-
-//por ahora no toquen esta vaina que lo tengo que rearmar
 export class AuthService {
-  async register(userData: { email: string; password: string; name: string; role?: string }) {
-    // TODO: Verificar si el usuario ya existe en la BD
-    const hashedPassword = await bcrypt.hash(userData.password, 12);
+  private repo = new AuthRepository();
 
-    // TODO: Guardar usuario en la BD
-    const newUser = {
-      id: Date.now().toString(), // Placeholder - usar UUID real
-      email: userData.email,
-      name: userData.name,
-      role: userData.role || 'user',
-      createdAt: new Date(),
-    };
+  async register(data: CreateUserDTO): Promise<{ user: UserResponse; token: string }> {
+    const [existente] = await this.repo.findByEmail(data.email);
+    if (existente) throw new Error('El email ya está registrado');
 
-    const token = this.generateToken(newUser.id);
+    const hashedPassword = await bcrypt.hash(data.password, 12);
+    const [created] = await this.repo.create({
+      id: crypto.randomUUID(),
+      nombre: data.nombre,
+      email: data.email,
+      password: hashedPassword,
+      titulo: data.titulo,
+      comunidad_id: data.comunidad_id,
+      id_nodo: data.id_nodo,
+      idioma: data.idioma,
+      reloj_logico: new Date().toISOString(),
+    });
 
-    return { user: newUser, token };
+    const token = this.generateToken(created.id);
+    return { user: created as UserResponse, token };
   }
 
-  async login(credentials: { email: string; password: string }) {
-    // TODO: Buscar usuario en la BD por email
-    // TODO: Comparar contraseñas con bcrypt.compare()
-    // Placeholder
-    const token = this.generateToken('user-id');
-    return { token };
+  async login(credentials: UserLoginDTO): Promise<{ user: UserResponse; token: string }> {
+    const [found] = await this.repo.findByEmail(credentials.email);
+    if (!found) throw new Error('Credenciales inválidas');
+
+    const valid = await bcrypt.compare(credentials.password, found.password);
+    if (!valid) throw new Error('Credenciales inválidas');
+
+    const token = this.generateToken(found.id);
+    return { user: found as UserResponse, token };
   }
 
-  async getProfile(userId: string) {
-    // TODO: Buscar usuario en la BD por ID
-    return { id: userId, message: 'Implementar búsqueda en BD' };
+  async getProfile(userId: string): Promise<UserResponse> {
+    const [found] = await this.repo.findById(userId);
+    if (!found) throw new Error('Usuario no encontrado');
+    return found as UserResponse;
   }
 
   private generateToken(userId: string): string {

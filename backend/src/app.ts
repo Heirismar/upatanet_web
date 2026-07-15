@@ -23,9 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRateLimiter);
 
 // rutas mi rey pendiente aca va toda vaina
-app.use('/api/v1', authRouter);
+app.use('/api/auth', authRouter);
 
-// Health de la bd
+
 app.get('/health', (_req, res) => {
   res.status(200).json({
     status: 'OK',

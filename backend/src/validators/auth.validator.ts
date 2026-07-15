@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 import { validationResultHandler } from '../utils/validation.util';
 
 export const validateRegister = [
-  body('name')
+  body('nombre')
     .trim()
     .notEmpty()
     .withMessage('El nombre es requerido')

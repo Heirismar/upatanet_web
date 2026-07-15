@@ -1,13 +1,12 @@
-import { Router, Request, Response } from 'express';
-import { AuthService } from '../services/auth.service';
+import { Router } from 'express';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { validateLogin, validateRegister } from '../validators/auth.validator';
+import { register, login, getProfile } from '../controllers/auth.controller';
 
 const router = Router();
-const authService = new AuthService();
 
-router.post('/register', validateRegister, (req: Request, res: Response) => authService.register(req.body));
-router.post('/login', validateLogin, (req: Request, res: Response) => authService.login(req.body));
-router.get('/profile', authMiddleware, (req: Request, res: Response) => authService.getProfile((req as any).user?.id));
+router.post('/register', validateRegister, register);
+router.post('/login', validateLogin, login);
+router.get('/profile', authMiddleware, getProfile);
 
 export { router as authRouter };

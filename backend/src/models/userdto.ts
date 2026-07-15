@@ -1,1 +1,0 @@
-//aca van los dtos de cada estructura de las tablas
