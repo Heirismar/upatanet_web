@@ -7,7 +7,10 @@ import { errorHandler } from './middlewares/error.middleware';
 import { notFoundHandler } from './middlewares/notFound.middleware';
 import { apiRateLimiter } from './middlewares/rateLimit.middleware';
 import { authRouter } from './routes/auth.routes';
-
+import { medicRouter } from './routes/medic.journey';
+import { centroMedicoRouter } from './routes/centro_medico.routes';
+import { usuarioRouter } from './routes/usuario.routes';
+import { noticiaRouter } from './routes/noticia.routes';
 const app = express();
 
 
@@ -23,9 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRateLimiter);
 
 // rutas mi rey pendiente aca va toda vaina
-app.use('/api/v1', authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/medic', medicRouter);
+app.use('/api/centro-medico', centroMedicoRouter);
+app.use('/api/usuario', usuarioRouter);
+app.use('/api/noticia', noticiaRouter);
 
-// Health de la bd
+
 app.get('/health', (_req, res) => {
   res.status(200).json({
     status: 'OK',

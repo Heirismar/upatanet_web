@@ -2,22 +2,15 @@ import { body } from 'express-validator';
 import { validationResultHandler } from '../utils/validation.util';
 
 export const validateRegister = [
-  body('name')
+  body('correo')
     .trim()
     .notEmpty()
-    .withMessage('El nombre es requerido')
-    .isLength({ min: 2, max: 100 })
-    .withMessage('El nombre debe tener entre 2 y 100 caracteres'),
-
-  body('email')
-    .trim()
-    .notEmpty()
-    .withMessage('El email es requerido')
+    .withMessage('El correo es requerido')
     .isEmail()
-    .withMessage('Formato de email inválido')
+    .withMessage('Formato de correo inválido')
     .normalizeEmail(),
 
-  body('password')
+  body('contrasena')
     .notEmpty()
     .withMessage('La contraseña es requerida')
     .isLength({ min: 6 })
@@ -27,14 +20,14 @@ export const validateRegister = [
 ];
 
 export const validateLogin = [
-  body('email')
+  body('correo')
     .trim()
     .notEmpty()
-    .withMessage('El email es requerido')
+    .withMessage('El correo es requerido')
     .isEmail()
-    .withMessage('Formato de email inválido'),
+    .withMessage('Formato de correo inválido'),
 
-  body('password')
+  body('contrasena')
     .notEmpty()
     .withMessage('La contraseña es requerida'),
 

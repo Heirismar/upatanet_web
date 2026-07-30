@@ -12,8 +12,11 @@ dist
 
 # SQLite database
 backend/src/*.db
+backend/src/*.db-shm
+backend/src/*.db-wal
 dist-ssr
 *.local
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*

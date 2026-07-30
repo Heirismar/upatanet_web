@@ -8,6 +8,7 @@
     "dev": "drizzle-kit push && ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "seed": "ts-node-dev --transpile-only src/seed.ts",
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {

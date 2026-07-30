@@ -100,7 +100,11 @@
     margin: 0 auto;
     padding: 40px 20px;
     box-sizing: border-box;
-    margin-top: 60px;
+    margin-top: 80px;
+}
+
+.upatanet-main > .btn{
+    margin-bottom: 24px;
 }
 
 .main-title{
@@ -115,6 +119,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-top: 32px;
     margin-bottom: 24px;
 }
 
@@ -129,6 +134,12 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.jornada-card:hover{
+    border-color: var(--accent-orange);
+    box-shadow: 0 4px 12px rgba(196, 59, 38, 0.12);
 }
 
 /* Línea indicadora naranja a la izquierda de la tarjeta */
@@ -192,6 +203,31 @@
     gap: 16px;
 }
 
+.jornada-actions{
+    display: flex;
+    gap: 4px;
+}
+
+.jornada-icon-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+.jornada-icon-btn:hover{
+    color: var(--accent-orange);
+    background: rgba(196, 59, 38, 0.1);
+}
+.jornada-icon-btn--danger:hover{
+    color: #b71c1c;
+    background: rgba(183, 28, 28, 0.1);
+}
+
 .jornada-fecha{
     background-color: #e3dacd;
     font-size: 0.7rem;
@@ -200,6 +236,45 @@
     min-width: 60px;
     text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Botones de acción en tarjetas (editar/eliminar) */
+.jornada-action{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+}
+.jornada-action--active-like{
+    color: #2e7d32;
+}
+.jornada-action--active-like:hover{
+    color: #2e7d32 !important;
+    background: rgba(46, 125, 50, 0.1) !important;
+}
+.jornada-action--active-dislike{
+    color: #b71c1c;
+}
+.jornada-action--active-dislike:hover{
+    color: #b71c1c !important;
+    background: rgba(183, 28, 28, 0.1) !important;
+}
+
+.jornada-action:hover{
+    color: var(--accent-orange);
+    background: rgba(196, 59, 38, 0.1);
+}
+
+.jornada-action--delete:hover{
+    color: #b71c1c;
+    background: rgba(183, 28, 28, 0.1);
 }
 
 .btn-editar{
@@ -243,12 +318,19 @@
     opacity: 0.9;
 }
 
+.btn--secondary{
+    background: var(--border-card);
+    color: var(--text-primary);
+    box-shadow: none;
+}
+
 /* Estilos específicos del formulario */
 .form-card{
-    background-color: var(--bg-card);
+    background: var(--bg-card);
     border: 1px solid var(--border-card);
     border-radius: 12px;
     padding: 32px;
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -322,6 +404,144 @@
     margin-top: 12px;
 }
 
+/* Admin tables */
+.admin-table{
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.admin-table th,
+.admin-table td{
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-card);
+    font-size: 0.85rem;
+}
+
+.admin-table th{
+    background: var(--border-card);
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.admin-table tr:hover{
+    background: rgba(196, 59, 38, 0.04);
+}
+
+/* Logo clickable */
+.logo-wrapper{
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.logo-wrapper--clickable{
+    cursor: pointer;
+}
+
+/* Sidebar overlay */
+.sidebar-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 15;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay--visible{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Admin Sidebar */
+.admin-sidebar{
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 260px;
+    height: 100vh;
+    background: var(--bg-main);
+    border-right: 1px solid #dcd4c5;
+    z-index: 20;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 20px rgba(28, 28, 30, 0.1);
+}
+
+.admin-sidebar--open{
+    left: 0;
+}
+
+.admin-sidebar-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px 16px;
+    border-bottom: 2px solid var(--accent-orange);
+    font-size: 0.7rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-top: 0;
+    background: var(--border-card);
+}
+
+.sidebar-close{
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    transition: color 0.2s;
+}
+
+.sidebar-close:hover{
+    color: var(--accent-orange);
+}
+
+.admin-sidebar-nav{
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+}
+
+.admin-sidebar-link{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    stroke: var(--text-secondary);
+    border-left: 3px solid transparent;
+    background: transparent;
+}
+
+.admin-sidebar-link:hover{
+    background: var(--border-card);
+    color: var(--accent-orange);
+    stroke: var(--accent-orange);
+    border-left-color: var(--accent-orange);
+}
+
+.admin-sidebar-link:active{
+    background: rgba(196, 59, 38, 0.12);
+}
+
 .fondo{
     position: fixed;
     top: 0;
@@ -337,14 +557,48 @@
 }
 .contenido{
     background-color: var(--border-card);
-    padding: 80px 50px;
+    padding: 32px 36px;
     border-radius: 12px;
     position: relative;
-    width: 300px;
+    min-width: 340px;
+    max-width: 520px;
     color: var(--text-primary);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
+}
+.detalle-contenido {
+  text-align: left;
+  width: 100%;
+}
+.detalle-contenido h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  color: var(--accent-orange);
+  border-bottom: 2px solid #3A3A3C;
+  padding-bottom: 10px;
+}
+.detalle-contenido .detalle-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #3A3A3C;
+}
+.detalle-contenido .detalle-row:last-child {
+  border-bottom: none;
+}
+.detalle-contenido .detalle-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  text-align: left;
+}
+.detalle-contenido .detalle-value {
+  font-size: 0.92rem;
+  word-break: break-word;
+  text-align: left;
+  color: var(--text-primary);
 }
 .botonCerrar{
     position: absolute;
@@ -354,4 +608,40 @@
     border: none;
     font-size: 16px;
     cursor: pointer;
+}
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.pag-btn {
+  min-width: 36px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.pag-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.pag-btn.pag-activo {
+  background: var(--accent-orange);
+  color: #fff;
+  border-color: var(--accent-orange);
+}
+.error-message{
+    background: #fdecea;
+    color: #b71c1c;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

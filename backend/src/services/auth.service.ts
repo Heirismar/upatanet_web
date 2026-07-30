@@ -1,42 +1,81 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { envConfig } from '../config';
+import { envConfig } from '../config/env.config';
+import { AuthRepository } from '../repositories/auth.repository';
+import type { RepresentanteResponse } from '../models/schemas.dto';
 
-
-//por ahora no toquen esta vaina que lo tengo que rearmar
 export class AuthService {
-  async register(userData: { email: string; password: string; name: string; role?: string }) {
-    // TODO: Verificar si el usuario ya existe en la BD
-    const hashedPassword = await bcrypt.hash(userData.password, 12);
+  private repo = new AuthRepository();
 
-    // TODO: Guardar usuario en la BD
-    const newUser = {
-      id: Date.now().toString(), // Placeholder - usar UUID real
-      email: userData.email,
-      name: userData.name,
-      role: userData.role || 'user',
-      createdAt: new Date(),
-    };
+  async register(data: {
+    nombre: string;
+    apellido: string;
+    correo: string;
+    contrasena: string;
+    c_i?: string;
+  }) {
+    const [existente] = await this.repo.findRepresentanteByCorreo(data.correo);
+    if (existente) throw new Error('El correo ya está registrado');
 
-    const token = this.generateToken(newUser.id);
+    const hashedPassword = await bcrypt.hash(data.contrasena, 12);
 
-    return { user: newUser, token };
+    const [newUsuario] = await this.repo.createUsuario({
+      nombre: data.nombre,
+      apellido: data.apellido,
+      rol: 'representante',
+    });
+
+    const [newRepresentante] = await this.repo.createRepresentante({
+      usuario_id: newUsuario.id,
+      correo: data.correo,
+      contrasena: hashedPassword,
+      c_i: data.c_i,
+    });
+
+    const token = this.generateToken(newUsuario.id);
+    return { user: newRepresentante, token, role: 'representante' };
   }
 
-  async login(credentials: { email: string; password: string }) {
-    // TODO: Buscar usuario en la BD por email
-    // TODO: Comparar contraseñas con bcrypt.compare()
-    // Placeholder
-    const token = this.generateToken('user-id');
-    return { token };
+  async login(credentials: { correo: string; contrasena: string }) {
+    const [adminFound] = await this.repo.findByCorreo(credentials.correo);
+    if (adminFound) {
+      const valid = await bcrypt.compare(credentials.contrasena, adminFound.contrasena!);
+      if (!valid) throw new Error('Credenciales inválidas');
+      const token = this.generateToken(adminFound.usuario_id!);
+      return { user: adminFound, token, role: 'admin' };
+    }
+
+    const [repFound] = await this.repo.findRepresentanteByCorreo(credentials.correo);
+    if (repFound) {
+      const valid = await bcrypt.compare(credentials.contrasena, repFound.contrasena!);
+      if (!valid) throw new Error('Credenciales inválidas');
+      const token = this.generateToken(repFound.usuario_id!);
+      return { user: repFound, token, role: 'representante' };
+    }
+
+    throw new Error('Credenciales inválidas');
   }
 
-  async getProfile(userId: string) {
-    // TODO: Buscar usuario en la BD por ID
-    return { id: userId, message: 'Implementar búsqueda en BD' };
+  async getProfile(usuarioId: number) {
+    const [found] = await this.repo.findUsuarioById(usuarioId);
+    if (!found) throw new Error('Usuario no encontrado');
+
+    if (found.rol === 'representante') {
+      const [rep] = await this.repo.findRepresentanteByUsuarioId(usuarioId);
+      return { ...found, centro_medico_id: rep?.centro_medico_id ?? null };
+    }
+
+    return found;
   }
 
-  private generateToken(userId: string): string {
-    return jwt.sign({ userId }, envConfig.jwt.secret, { expiresIn: envConfig.jwt.expiresIn } as jwt.SignOptions);
+  async updateCentroMedico(usuarioId: number, centroMedicoId: number) {
+    const [found] = await this.repo.findRepresentanteByUsuarioId(usuarioId);
+    if (!found) throw new Error('Representante no encontrado');
+    const [updated] = await this.repo.updateRepresentanteCentroMedico(usuarioId, centroMedicoId);
+    return updated;
+  }
+
+  private generateToken(usuarioId: number): string {
+    return jwt.sign({ usuarioId }, envConfig.jwt.secret, { expiresIn: envConfig.jwt.expiresIn } as jwt.SignOptions);
   }
 }
