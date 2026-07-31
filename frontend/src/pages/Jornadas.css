@@ -352,6 +352,8 @@
 }
 
 .form-group label{
+    align-self: flex-start;
+    margin-left: 1rem;
     font-size: 0.86rem;
     color: var(--text-primary);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -644,4 +646,165 @@
     font-size: 0.85rem;
     margin-bottom: 16px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* ===== Responsive: base 800x600 ===== */
+@media (max-width: 800px) {
+    .upatanet-header {
+        padding: 10px 16px;
+    }
+
+    .upatanet-main {
+        padding: 24px 16px;
+        margin-top: 60px;
+    }
+
+    .main-title {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+    }
+
+    .jornada-card {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .jornada-left {
+        min-width: 0;
+        flex: 1 1 100%;
+    }
+
+    .jornada-right {
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .jornada-details {
+        min-width: 0;
+    }
+
+    .jornada-titulo {
+        font-size: 0.8rem;
+        word-break: break-word;
+    }
+
+    .jornada-fecha {
+        font-size: 0.65rem;
+        padding: 5px 12px;
+    }
+
+    .jornada-actions {
+        gap: 2px;
+    }
+
+    .form-card {
+        padding: 24px 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    .fondo {
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .contenido {
+        min-width: 0;
+        width: 90vw;
+        max-width: 90vw;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 24px 20px;
+        box-sizing: border-box;
+    }
+
+    .detalle-contenido .detalle-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 8px 0;
+    }
+
+    .admin-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .paginacion {
+        gap: 6px;
+    }
+
+    .pag-btn {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .sidebar-overlay--visible {
+        backdrop-filter: blur(2px);
+    }
+
+    .upatanet-main > .btn {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-user {
+        gap: 6px;
+    }
+
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .user-name {
+        font-size: 0.75rem;
+    }
+
+    .user-role {
+        font-size: 0.6rem;
+    }
+
+    .upatanet-main {
+        padding: 20px 12px;
+        margin-top: 56px;
+    }
+
+    .jornada-card {
+        padding: 12px;
+    }
+
+    .contenido {
+        width: 95vw;
+        max-width: 95vw;
+        padding: 20px 16px;
+    }
+
+    .form-actions .btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
 }

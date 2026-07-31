@@ -31,7 +31,7 @@ function LogIn() {
       });
       login(response.token);
       const profile = await getProfileService(response.token);
-      navigate(profile?.rol === 'representante' ? '/panel/home' : '/HomeJornadas');
+      navigate(profile?.rol === 'representante' ? '/panel/home' : profile?.rol === 'admin' ? '/admin/jornadas' : '/HomeJornadas');
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Ocurrió un error inesperado.";
