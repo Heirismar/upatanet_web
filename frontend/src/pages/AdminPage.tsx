@@ -14,7 +14,7 @@ type Section = 'usuarios' | 'centros' | 'jornadas' | 'noticias';
 const sectionTitle: Record<Section, string> = {
   usuarios: 'Usuarios',
   centros: 'Centros Médicos',
-  jornadas: 'Jornadas',
+  jornadas: 'Inicio',
   noticias: 'Noticias',
 };
 
@@ -105,7 +105,6 @@ export const AdminPage = () => {
       <main className="upatanet-main">
         <h2 className="main-title">{sectionTitle[section]}</h2>
 
-        {section === 'jornadas' && <Link to="/CreacionJornada" className="btn" style={{ marginBottom: 24, display: 'inline-block' }}>Crear nueva jornada</Link>}
         {section === 'usuarios' && <Link to="/admin/crear/usuario" className="btn" style={{ marginBottom: 24, display: 'inline-block' }}>Crear usuario</Link>}
         {section === 'centros' && <Link to="/admin/crear/centro" className="btn" style={{ marginBottom: 24, display: 'inline-block' }}>Crear centro médico</Link>}
         {section === 'noticias' && <Link to="/admin/crear/noticia" className="btn" style={{ marginBottom: 24, display: 'inline-block' }}>Crear noticia</Link>}
